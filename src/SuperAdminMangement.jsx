@@ -6,7 +6,8 @@ import SAdeletepopup from "./SAdeletepopup";
 import SADropdown from "./SADropdown";
 import SuperAdminAddAdmin from "./SuperAdminAddAdmin";
 import SuperAdminEditAdmin from "./SuperAdminEditAdmin";
-import { Pencil } from "lucide-react";
+import SuperAdminChangePassword from "./SuperAdminChangePassword";
+import { Pencil, Key } from "lucide-react";
 
 const SuperAdminMangement = () => {
   const [admins, setAdmins] = useState([]);
@@ -18,6 +19,7 @@ const SuperAdminMangement = () => {
   const [packageFilter, setPackageFilter] = useState("All");
   const [addAdminModal, setAddAdminModal] = useState(false);
   const [editAdminData, setEditAdminData] = useState(null);
+  const [passwordAdminData, setPasswordAdminData] = useState(null);
 
 
   const fetchAmount = async () => {
@@ -258,6 +260,14 @@ const SuperAdminMangement = () => {
         />
       )}
 
+      {passwordAdminData && (
+        <SuperAdminChangePassword
+          adminData={passwordAdminData}
+          onClose={() => setPasswordAdminData(null)}
+          onSuccess={() => {}}
+        />
+      )}
+
 
       {/* mobile */}
 
@@ -366,17 +376,29 @@ const SuperAdminMangement = () => {
                 </div>
 
                 {/* Buttons */}
-                <div className="grid grid-cols-2 gap-3 mt-5 pt-4 border-t border-gray-100">
+                <div className="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-gray-100">
+                  <button
+                    onClick={() => setPasswordAdminData(admin)}
+                    className="
+          h-10 rounded-xl text-sm font-semibold
+          text-emerald-600 bg-emerald-50 border border-emerald-200
+          hover:bg-emerald-100 active:scale-[0.98]
+          transition flex items-center justify-center gap-1.5
+        "
+                    title="Change Password"
+                  >
+                    <Key size={14} /> Pass
+                  </button>
                   <button
                     onClick={() => setEditAdminData(admin)}
                     className="
           h-10 rounded-xl text-sm font-semibold
           text-indigo-600 bg-indigo-50 border border-indigo-200
           hover:bg-indigo-100 active:scale-[0.98]
-          transition flex items-center justify-center gap-2
+          transition flex items-center justify-center gap-1.5
         "
                   >
-                    <Pencil size={16} /> Edit
+                    <Pencil size={14} /> Edit
                   </button>
                   <button
                     onClick={() => {
@@ -387,10 +409,10 @@ const SuperAdminMangement = () => {
           h-10 rounded-xl text-sm font-semibold
           text-red-600 bg-red-50 border border-red-200
           hover:bg-red-100 active:scale-[0.98]
-          transition flex items-center justify-center gap-2
+          transition flex items-center justify-center gap-1.5
         "
                   >
-                    <Trash2 size={16} /> Delete
+                    <Trash2 size={14} /> Del
                   </button>
                 </div>
               </div>
@@ -503,7 +525,14 @@ const SuperAdminMangement = () => {
                   </td>
 
                   <td className="px-5 py-4">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setPasswordAdminData(admin)}
+                        className="p-1.5 rounded-lg text-emerald-500 hover:bg-emerald-50 hover:text-emerald-600 transition-colors tooltip-trigger"
+                        title="Change Password"
+                      >
+                        <Key size={16} />
+                      </button>
                       <button
                         onClick={() => setEditAdminData(admin)}
                         className="p-1.5 rounded-lg text-indigo-500 hover:bg-indigo-50 hover:text-indigo-600 transition-colors tooltip-trigger"
