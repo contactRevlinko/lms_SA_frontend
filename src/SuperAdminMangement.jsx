@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const BASE_URL = import.meta.env.VITE_API_URL;
 import { HandCoins, Icon, Trash2, Users } from "lucide-react";
 import toast from "react-hot-toast";
@@ -10,6 +11,7 @@ import SuperAdminChangePassword from "./SuperAdminChangePassword";
 import { Pencil, Key } from "lucide-react";
 
 const SuperAdminMangement = () => {
+  const navigate = useNavigate();
   const [admins, setAdmins] = useState([]);
   const [deletePopup, setDeletePopup] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
@@ -21,7 +23,6 @@ const SuperAdminMangement = () => {
   const [editAdminData, setEditAdminData] = useState(null);
   const [passwordAdminData, setPasswordAdminData] = useState(null);
 
-
   const fetchAmount = async () => {
     const token = localStorage.getItem("superAdminToken");
 
@@ -31,6 +32,14 @@ const SuperAdminMangement = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      if (res.status === 401) {
+        localStorage.removeItem("superAdminToken");
+        localStorage.removeItem("superAdminUser");
+        toast.error("Session expired. Please log in again.");
+        navigate("/");
+        return;
+      }
 
       const data = await res.json();
 
@@ -52,9 +61,20 @@ const SuperAdminMangement = () => {
           Authorization: `Bearer ${superAdminToken}`,
         },
       });
+
+      if (res.status === 401) {
+        localStorage.removeItem("superAdminToken");
+        localStorage.removeItem("superAdminUser");
+        toast.error("Session expired. Please log in again.");
+        navigate("/");
+        return;
+      }
+
       const adminData = await res.json();
       console.log(adminData, "adminData");
-      setAdmins(adminData.data);
+      if (adminData.success) {
+        setAdmins(adminData.data || []);
+      }
     } catch (err) {
       console.log(err);
     }

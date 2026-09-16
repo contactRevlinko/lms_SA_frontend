@@ -8,6 +8,7 @@ import {
     ChartLine,
     Users,
     Settings,
+    Globe,
     X,
 } from "lucide-react";
 
@@ -33,8 +34,8 @@ const SuperAdminSidebar = ({ showSideBar, handleSideBar }) => {
         >
             <div className="mb-8 flex justify-between items-center">
                 <div>
-                    <h1 className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">LeadPro</h1>
-                    <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mt-0.5">Enterprise CRM</p>
+                    <h1 className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">LMS</h1>
+                    <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mt-0.5">Super Admin CRM</p>
                 </div>
 
                 <button
@@ -51,27 +52,35 @@ const SuperAdminSidebar = ({ showSideBar, handleSideBar }) => {
                     Dashboard
                 </NavLink>
 
+                <NavLink to="/demo-requests" className={navClass}>
+                    <BellRing size={22} />
+                    Demo Requests
+                </NavLink>
+
                 <NavLink to="/admin-manage" className={navClass}>
                     <UserRoundSearch size={22} />
-                    admin manage
+                    Admin Manage
                 </NavLink>
 
                 <NavLink to="/packages" className={navClass}>
                     <Calendar size={22} />
-                    packages
+                    Packages
                 </NavLink>
 
                 <NavLink to="/payment-history" className={navClass}>
                     <BellRing size={22} />
-                    payment history
+                    Payment History
                 </NavLink>
 
                 <NavLink to="/razorpay-setting" className={navClass}>
-                    <BellRing size={22} />
-                    razorpay settings
+                    <Settings size={22} />
+                    Razorpay Settings
                 </NavLink>
 
-
+                <NavLink to="/website-settings" className={navClass}>
+                    <Globe size={22} />
+                    Website Settings
+                </NavLink>
             </div>
         </div>
     );

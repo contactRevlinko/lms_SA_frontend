@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 const BASE_URL = import.meta.env.VITE_API_URL;
 import { validateEmail, validatePassword } from '../src/config/validate';
 import toast from "react-hot-toast";
@@ -11,6 +11,13 @@ const SuperAdminLogin = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem("superAdminToken");
+        if (token) {
+            navigate("/dashboard", { replace: true });
+        }
+    }, [navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
